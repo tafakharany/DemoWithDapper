@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DemoWithDapper.Data;
-using DemoWithDapper.Models;
+using DemoWithDapper.Domain.Data;
+using DemoWithDapper.Domain.Models;
 
 namespace DemoWithDapper.Controllers
 {

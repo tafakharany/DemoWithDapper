@@ -7,22 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DemoWithDapper.Domain.Data;
 using DemoWithDapper.Domain.Models;
+using DemoWithDapper.Contracts;
 
 namespace DemoWithDapper.Controllers
 {
     public class CompaniesController : Controller
     {
-        private readonly AppDbContext _context;
-
-        public CompaniesController(AppDbContext context)
+       
+        private readonly ICompanyRepository _companyRepository;
+        public CompaniesController(ICompanyRepository companyRepository)
         {
-            _context = context;
+            _companyRepository = companyRepository;
         }
 
         // GET: Companies
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Comapanies.ToListAsync());
+            return View(_companyRepository.GetAll());
         }
 
         // GET: Companies/Details/5
@@ -33,8 +34,7 @@ namespace DemoWithDapper.Controllers
                 return NotFound();
             }
 
-            var company = await _context.Comapanies
-                .FirstOrDefaultAsync(m => m.CompanyId == id);
+            var company = _companyRepository.GetById(id.GetValueOrDefault());
             if (company == null)
             {
                 return NotFound();
@@ -58,8 +58,7 @@ namespace DemoWithDapper.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(company);
-                await _context.SaveChangesAsync();
+                _companyRepository.AddNewCompany(company);
                 return RedirectToAction(nameof(Index));
             }
             return View(company);
@@ -73,7 +72,7 @@ namespace DemoWithDapper.Controllers
                 return NotFound();
             }
 
-            var company = await _context.Comapanies.FindAsync(id);
+            var company = _companyRepository.GetById(id.GetValueOrDefault());
             if (company == null)
             {
                 return NotFound();
@@ -95,22 +94,7 @@ namespace DemoWithDapper.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(company);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CompanyExists(company.CompanyId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _companyRepository.UpdateCompany(company);
                 return RedirectToAction(nameof(Index));
             }
             return View(company);
@@ -124,30 +108,20 @@ namespace DemoWithDapper.Controllers
                 return NotFound();
             }
 
-            var company = await _context.Comapanies
-                .FirstOrDefaultAsync(m => m.CompanyId == id);
-            if (company == null)
-            {
-                return NotFound();
-            }
-
-            return View(company);
-        }
-
-        // POST: Companies/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var company = await _context.Comapanies.FindAsync(id);
-            _context.Comapanies.Remove(company);
-            await _context.SaveChangesAsync();
+            _companyRepository.RemoveCompany(id.GetValueOrDefault());
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CompanyExists(int id)
-        {
-            return _context.Comapanies.Any(e => e.CompanyId == id);
-        }
+        //// POST: Companies/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    
+        //    _companyRepository.RemoveCompany(id);
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+       
     }
 }

@@ -1,4 +1,6 @@
+using DemoWithDapper.Contracts;
 using DemoWithDapper.Domain.Data;
+using DemoWithDapper.Domain.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +24,7 @@ namespace DemoWithDapper
         {
             services.AddDbContext<AppDbContext>(options=>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<ICompanyRepository, CompanyRepositoryEF>();
             services.AddControllersWithViews();
         }
 

@@ -108,20 +108,20 @@ namespace DemoWithDapper.Controllers
                 return NotFound();
             }
 
-            _companyRepository.RemoveCompany(id.GetValueOrDefault());
-            return RedirectToAction(nameof(Index));
+            
+            var company = _companyRepository.GetById(id.GetValueOrDefault());
+            return View(company);
         }
 
         //// POST: Companies/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    
-        //    _companyRepository.RemoveCompany(id);
-        //    return RedirectToAction(nameof(Index));
-        //}
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            _companyRepository.RemoveCompany(id);
+            return RedirectToAction(nameof(Index));
+        }
 
-       
+
     }
 }

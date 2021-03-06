@@ -1,4 +1,4 @@
-﻿using DemoWithDapper.Models;
+﻿using DemoWithDapper.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;

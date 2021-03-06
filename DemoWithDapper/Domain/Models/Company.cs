@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DemoWithDapper.Models
+namespace DemoWithDapper.Domain.Models
 {
     public class Company
     {
@@ -14,5 +14,7 @@ namespace DemoWithDapper.Models
         public string City { get; set; }
         public string State { get; set; }
         public string PostalCode { get; set; }
+ 
     }
+
 }

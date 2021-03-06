@@ -1,6 +1,6 @@
 using System;
 
-namespace DemoWithDapper.Models
+namespace DemoWithDapper.Domain.Models
 {
     public class ErrorViewModel
     {

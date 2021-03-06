@@ -27,12 +27,12 @@ namespace DemoWithDapper.Domain.Repository
         
         private bool CompanyExists(int id)
         {
-            return _context.Comapanies.Any(e => e.CompanyId == id);
+            return _context.Companies.Any(e => e.CompanyId == id);
         }
 
         public Company AddNewCompany(Company company)
         {
-            _context.Comapanies.Add(company);
+            _context.Companies.Add(company);
             _context.SaveChanges();
             return company;
         }
@@ -40,25 +40,25 @@ namespace DemoWithDapper.Domain.Repository
 
         public Company GetById(int id)
         {
-            return _context.Comapanies.FirstOrDefault(c => c.CompanyId == id);
+            return _context.Companies.FirstOrDefault(c => c.CompanyId == id);
         }
 
         public List<Company> GetAll()
         {
-            return _context.Comapanies.ToList();
+            return _context.Companies.ToList();
         }
 
         public Company UpdateCompany(Company company)
         {
-            _context.Comapanies.Update(company);
+            _context.Companies.Update(company);
             _context.SaveChanges();
             return company;
         }
 
         public void RemoveCompany(int id)
         {
-            var company = _context.Comapanies.FirstOrDefault(c => c.CompanyId == id);
-            _context.Comapanies.Remove(company);
+            var company = _context.Companies.FirstOrDefault(c => c.CompanyId == id);
+            _context.Companies.Remove(company);
             _context.SaveChanges();
             return;
         }

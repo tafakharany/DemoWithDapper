@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DemoWithDapper.Data.migrations
+namespace DemoWithDapper.Domain.Data.Migrations
 {
-    public partial class initialMigrations : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Comapanies",
+                name: "Companies",
                 columns: table => new
                 {
                     CompanyId = table.Column<int>(type: "int", nullable: false)
@@ -20,14 +20,14 @@ namespace DemoWithDapper.Data.migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comapanies", x => x.CompanyId);
+                    table.PrimaryKey("PK_Companies", x => x.CompanyId);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Comapanies");
+                name: "Companies");
         }
     }
 }

@@ -7,6 +7,6 @@ namespace DemoWithDapper.Domain.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<Company> Comapanies { get; set; }
+        public DbSet<Company> Companies { get; set; }
     }
 }
